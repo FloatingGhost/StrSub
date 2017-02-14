@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>StrSub</title>
+    </head>
+    <body>
+        <h1>StrSub</h1>
+        <h2>Enter a URL, and add as many substitutions as you want</h2>
+        <div id="form" />
+    </body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+
+    <script type="text/babel">
+        var AForm = React.createClass({
+            getInitialState: function() {
+                return {inputs: [[]]}
+            },
+
+            render: function() {
+                return (
+                <form action="sub">
+
+                    <label>URL</label>
+                    <input name="url" />
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>From</td>
+                                <td>To</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    {
+                    this.state.inputs.map((i) => (
+                        <tr key={this.state.inputs.indexOf(i)}>
+                            <td><input name={"from"+this.state.inputs.indexOf(i)} /></td>
+                            <td><input name={"to"+this.state.inputs.indexOf(i)} /></td>
+                        </tr>
+                    ))
+                    }
+                    </tbody></table>
+                    <button type="button" onClick={this.addNew}>
+                        Add New
+                    </button><br />
+                    <button type="submit">Submit</button>
+                </form>
+                
+                )
+            },
+            
+            addNew: function() {
+                var i = this.state;
+                i.inputs.push(["a", "b"])
+                this.setState(i);
+            }
+        });
+
+        ReactDOM.render(<AForm />, document.getElementById("form"));
+    </script>
+</html>
